@@ -1,0 +1,35 @@
+{% extends {base.html} %}
+
+{% block title %}Edit Item{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">Edit Item</h4>
+    <a href="{{ url_for('inventory') }}" class="btn-outline-secondary btn-sm">Kembali?</a>
+</div>
+
+<div class="card border-secondary">
+    <div class="card-body">
+        <form method="POST">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Kode Barang</label>
+                    <input type="text" name="kode_barang" class="form-control" value="{{ item.kode_barang }} " required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Nama Barang</label>
+                    <input type="text" name="nama_barang" class="form-control" value=" {{ item.nama_barang }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Kategori</label>
+                    <input type="text" name="kategori" class="form-control" value="{{ item.kategori or '' }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Satuan</label>
+                    <input type="text" name="satuan" class="form-control" value="{{ item.satuan or '' }}">
+                </div>
+                
+            </div>
+        </form>
+    </div>
+</div>

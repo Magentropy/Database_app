@@ -72,10 +72,25 @@ def menu():
     items = db.session.scalars(sa.select(Menu)).all()
     return render_template('menu.html', items=items)
 
-@app.route('/inventory/add')
+@app.route('/inventory/add', methods=['GET', 'POST'])
 @login_required
 def add_inventory():
-    return "coming soon"
+    if request.method == 'POST':
+        item = Inventory(
+            kode_barang = request.form['kode_barang'],
+            nama_barang = request.form['nama_barang'],
+            kategori = request.form['kategori'],
+            satuan = request.form['satuan'],
+            qty = request.form['qty'],
+            harga_beli = request.form['harga_beli'] or None,
+            harga_jual = request.form['harga_jual'] or None,
+            keterangan = request.form['keterangan'] or None,
+        )
+        db.session.add(item)
+        db.session.commit()
+        flash('Item sudah ditambahkan!')
+        return redirect(url_for('inventory'))
+    return render_template('add_inventory.html')
 
 @app.route('/inventory/edit/<int:id>')
 @login_required
