@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Resep{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">
+        Resep - {{ menu.nama_menu }}
+    </h4>
+
+    <div>
+        <a href="{{ url_for('add_recipe', menu_id=menu.id) }}"
+           class="btn btn-primary btn-sm">
+            Tambah Bahan
+        </a>
+
+        <a href="{{ url_for('menu') }}"
+           class="btn btn-outline-secondary btn-sm">
+            Kembali
+        </a>
+    </div>
+</div>
+
+<div class="card border-secondary">
+    <div class="card-body p-0">
+
+        <table class="table table-dark table-hover mb-0">
+
+            <thead>
+                <tr>
+                    <th>Bahan</th>
+                    <th>Jumlah</th>
+                    <th>Satuan</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for r in recipes %}
+                <tr>
+
+                    <td>{{ r.bahan.nama_barang }}</td>
+
+                    <td>{{ r.jumlah }}</td>
+
+                    <td>{{ r.satuan }}</td>
+
+                    <td>
+                        <a href="{{ url_for('delete_recipe', id=r.id) }}"
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Hapus resep?')">
+
+                           Hapus
+                        </a>
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="4"
+                        class="text-center text-secondary">
+
+                        Belum ada resep!
+
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}
