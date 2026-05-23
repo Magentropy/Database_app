@@ -1,4 +1,4 @@
-/* ===== GLOBAL ===== */
+/*  global  */
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@ body {
     min-height: 100vh;
 }
 
-/* ===== SIDEBAR ===== */
+/*  sidebar  */
 .sidebar {
     width: 240px;
     min-height: 100vh;
@@ -86,14 +86,14 @@ body {
     gap: 4px;
 }
 
-/* ===== MAIN CONTENT ===== */
+/*  main  */
 .main-content {
     margin-left: 240px;
     padding: 28px;
     min-height: 100vh;
 }
 
-/* ===== CARDS ===== */
+/*  card  */
 .card {
     border-radius: 10px;
     border: 1px solid #e0e0e0 !important;
@@ -107,7 +107,7 @@ body {
     padding: 14px 16px;
 }
 
-/* ===== TABLE ===== */
+/*  table  */
 .table {
     font-size: 14px;
 }
@@ -118,13 +118,13 @@ body {
     border-bottom: 1px solid #e0e0e0;
 }
 
-/* ===== BUTTONS ===== */
+/*  button  */
 .btn {
     font-size: 13px;
     border-radius: 6px;
 }
 
-/* ===== ALERT ===== */
+/*  alert  */
 .alert {
     border-radius: 8px;
     font-size: 14px;
