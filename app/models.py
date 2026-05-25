@@ -43,7 +43,7 @@ class Menu(db.Model):
     id : so.Mapped[int] = so.mapped_column(primary_key=True)
     nama_menu: so.Mapped[str] = so.mapped_column(sa.String(100), nullable=False)
     harga: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
-    deskripsi: so.Mapped[str] = so.mapped_column(sa.String(200))
+    deskripsi: so.Mapped[Optional[str]] = so.mapped_column(sa.String(200))
     recipes: so.WriteOnlyMapped['Recipe'] = so.relationship(back_populates='menu', passive_deletes=True)
 
     def __repr__(self):

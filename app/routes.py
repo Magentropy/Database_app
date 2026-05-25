@@ -78,19 +78,15 @@ def menu():
 def add_inventory():
     if request.method == 'POST':
         qty = float(request.form['qty'])
-        display_unit = request.form['display_unit']
-        if display_unit == 'kg':
-             qty *= 1000
-        elif display_unit == 'liter':
-             qty *= 1000
+        if qty < 0:
+            flash('qty tidak boleh dibawah 0!')
+            return redirect(url_for('add_inventory'))
         item = Inventory(
             kode_barang = request.form['kode_barang'],
             nama_barang = request.form['nama_barang'],
             kategori = request.form['kategori'],
             satuan = request.form['satuan'],
             qty = qty,
-            harga_beli = request.form['harga_beli'] or None,
-            harga_jual = request.form['harga_jual'] or None,
             keterangan = request.form['keterangan'] or None,
         )
         db.session.add(item)
@@ -111,15 +107,11 @@ def edit_inventory(id):
         item.nama_barang = request.form['nama_barang']
         item.kategori = request.form['kategori'] or None
         qty = float(request.form['qty'])
-        display_unit = request.form['display_unit']
-        if display_unit == 'kg':
-            qty *= 1000
-        elif display_unit == 'liter':
-            qty *= 1000
+        if qty < 0:
+            flash('qty tidak boleh dibawah 0!')
+            return redirect(url_for('edit_inventory', id=id))
         item.qty = qty
         item.satuan = request.form['satuan'] or None
-        item.harga_beli = request.form['harga_beli'] or None
-        item.harga_jual = request.form['harga_jual'] or None
         item.keterangan = request.form['keterangan'] or None
         db.session.commit()
         flash('Item berhasil diupdate!')
@@ -283,7 +275,12 @@ def add_sale():
                 for recipe in recipes:
                     bahan = db.session.get(Inventory, recipe.inventory_id)
                     if bahan:
-                        bahan.qty -= recipe.jumlah * int(jum)
+                        kebutuhan = recipe.jumlah * int(jum)
+                        if bahan.qty < kebutuhan:
+                            db.session.rollback()
+                            flash(f'Stok {bahan.nama_barang} tidak cukup! Stok tersedia : {bahan.qty} {bahan.satuan}')
+                            return redirect(url_for('add_sale'))
+                        bahan.qty = max(0, bahan.qty - kebutuhan)
 
         db.session.commit()
         flash('Rekapan telah disimpan dan stok telah diupdate!')

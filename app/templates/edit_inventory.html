@@ -49,7 +49,7 @@
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">QTY</label>
-                    <input type="number" name="qty" class="form-control" step="0.01" value="{{ item.qty }}" required>
+                    <input type="number" name="qty" class="form-control" step="0.01" min="0" value="{{ item.qty }}" required>
                 </div>
                 <div class="col-md-4">
                 <label class="form-label">
@@ -62,14 +62,6 @@
                 <option value="ml">ml</option>
                 <option value="pcs">pcs</option>
                 </select>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Harga Beli</label>
-                    <input type="number" name="harga_beli" class="form-control" value="{{ item.harga_beli or ''}}">
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Harga Jual</label>
-                    <input type="number" name="harga_jual" class="form-control" value="{{ item.harga_jual or ''}}">
                 </div>
                 <div class="col-12">
                     <label class="form-label">Keterangan</label>
