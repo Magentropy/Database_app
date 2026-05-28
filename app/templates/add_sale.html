@@ -5,15 +5,16 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h4 class="mb-0">Rekap Penjualan</h4>
-    <a href="{{ url_for('sales') }}" class="btn btn-outline-secondary btn-sm">Kembali?</a>
+    <a href="{{ url_for('sales') }}" class="btn btn-outline-secondary btn-sm">Kembali</a>
 </div>
 
 <div class="card border-secondary">
     <div class="card-body">
         <form method="POST">
+            {{ form.hidden_tag() }}
             <div class="mb-4">
                 <label class="form-label">Catatan</label>
-                <input type="text" name="catatan" class="form-control" placeholder="contoh: shift pagi, event tertentu">
+                {{ form.catatan(class="form-control", placeholder="contoh: shift pagi")}}
             </div>
 
             <h6 class="mb-3">Menu Terjual</h6>

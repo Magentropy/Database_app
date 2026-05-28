@@ -31,8 +31,9 @@ class Inventory(db.Model):
     kategori: so.Mapped[str] = so.mapped_column(sa.String(64))
     satuan: so.Mapped[Optional[str]] = so.mapped_column(sa.String(32))
     qty: so.Mapped[float] = so.mapped_column(sa.Float, nullable=False, default=0)
-    harga_beli: so.Mapped[Optional[int]] = so.mapped_column(sa.Integer)
-    harga_jual: so.Mapped[Optional[int]] = so.mapped_column(sa.Integer)
+    stok_minimum: so.Mapped[float] = so.mapped_column(sa.Float, nullable=False, server_default='0') 
+    # harga_beli: so.Mapped[Optional[int]] = so.mapped_column(sa.Integer)
+    # harga_jual: so.Mapped[Optional[int]] = so.mapped_column(sa.Integer)
     keterangan: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
     recipes: so.WriteOnlyMapped['Recipe'] = so.relationship(back_populates='bahan', passive_deletes=True)
 

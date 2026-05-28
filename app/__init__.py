@@ -25,4 +25,13 @@ def format_rupiah(value):
     return f'Rp {value:,.0f}'.replace(',', '.')
 
 app.jinja_env.filters['rupiah'] = format_rupiah
+
+def format_qty(qty, satuan):
+    if satuan == 'gram' and qty >= 1000:
+        return f"{qty/1000:.2f} kg"
+    elif satuan == 'ml' and qty >= 1000:
+        return f"{qty/1000:.2f} liter"
+    return f"{qty:g} {satuan}"
+
+app.jinja_env.filters['format_qty'] = format_qty
 from app import routes, models

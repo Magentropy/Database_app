@@ -11,19 +11,26 @@
 
 <div class="card border-secondary">
     <div class="card-body">
-        <form method="POST">
+        <form method="POST" novalidate>
+            {{ form.hidden_tag() }}
             <div class="row g-3">
-                <div class="col col-md-6">
-                    <label class="form-label">Nama Menu</label>
-                    <input type="text" name="nama_menu" class="form-control" value="{{ menu.nama_menu }}" required>
+               <div class="col-md-6">
+                    {{ form.nama_menu.label(class='form-label') }}
+                    {{ form.nama_menu(class='form-control') }}
+                    {% for error in form.nama_menu.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                    {% endfor %}
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Harga</label>
-                    <input type="number" name="harga" class="form-control" value="{{ menu.harga }}" required>
+                    {{ form.harga.label(class='form-label') }}
+                    {{ form.harga(class='form-control') }}
+                    {% for error in form.harga.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                    {% endfor %}
                 </div>
                 <div class="col-12">
-                    <label class="form-label">Deskripsi</label>
-                    <textarea name="deskripsi" class="form-control" rows="2">{{ menu.deskripsi or '' }}</textarea>
+                    {{ form.deskripsi.label(class='form-label') }}
+                    {{ form.deskripsi(class='form-control', rows='2') }}
                 </div>
                 <div class="mt-4">
                     <button type="submit" class="btn btn-primary">Update</button>

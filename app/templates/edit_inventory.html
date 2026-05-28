@@ -10,66 +10,58 @@
 
 <div class="card border-secondary">
     <div class="card-body">
-        <form method="POST">
+        <form method="POST" autocomplete="off" novalidate>
+            {{ form.hidden_tag() }}
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label class="form-label">Kode Barang</label>
-                    <input type="text" name="kode_barang" class="form-control" value="{{ item.kode_barang }} " required>
+                    {{ form.kode_barang.label(class='form-label') }}
+                    {{ form.kode_barang(class='form-control') }}
+                    {% for error in form.kode_barang.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                    {% endfor %}
                 </div>
+
                 <div class="col-md-6">
-                    <label class="form-label">Nama Barang</label>
-                    <input type="text" name="nama_barang" class="form-control" value=" {{ item.nama_barang }}" required>
+                    {{ form.nama_barang.label(class='form-label') }}
+                    {{ form.nama_barang(class='form-control') }}
+                    {% for error in form.nama_barang.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                    {% endfor %}
                 </div>
+
                 <div class="col-md-6">
-                    <label class="form-label">Kategori</label>
-                    <input type="text" name="kategori" class="form-control" value="{{ item.kategori or '' }}" required>
+                    {{ form.qty.label(class='form-label') }}
+                    {{ form.qty(class='form-control', step='0.01', min='0') }}
+                    {% for error in form.qty.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                    {% endfor %}
                 </div>
-                <div class="col-md-4">
-                    <label class="form-label">Satuan Storage</label>
-                    <select name="satuan" class="form-control">
-                    <option value="gram"
-                        {% if item.satuan == 'gram' %}
-                            selected
-                        {% endif %}>
-                            gram
-                    </option>
-                    <option value="ml"
-                        {% if item.satuan == 'ml' %}
-                            selected
-                        {% endif %}>
-                            ml
-                    </option>
-                    <option value="pcs"
-                        {% if item.satuan == 'pcs' %}
-                            selected
-                        {% endif %}>
-                            pcs
-                    </option>
-                    </select>
+
+                <div class="col-md-6">
+                    {{ form.satuan.label(class='form-label') }}
+                    {{ form.satuan(class='form-select') }}
                 </div>
-                <div class="col-md-4">
-                    <label class="form-label">QTY</label>
-                    <input type="number" name="qty" class="form-control" step="0.01" min="0" value="{{ item.qty }}" required>
+
+                <div class="col-md-6">
+                    <label class="form-label">Stok Minimum</label>
+                    {{ form.stok_minimum(class="form-control") }}
+                    {% for error in form.stok_minimum.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                    {% endfor %}
                 </div>
-                <div class="col-md-4">
-                <label class="form-label">
-                    Input Unit
-                </label>
-                <select name="display_unit" class="form-control">
-                <option value="kg">kg</option>
-                <option value="gram">gram</option>
-                <option value="liter">liter</option>
-                <option value="ml">ml</option>
-                <option value="pcs">pcs</option>
-                </select>
+
+                <div class="col-md-6">
+                    {{ form.kategori.label(class='form-label') }}
+                    {{ form.kategori(class='form-control') }}
                 </div>
-                <div class="col-12">
-                    <label class="form-label">Keterangan</label>
-                    <textarea name="keterangan" class="form-control" rows="2">{{ item.keterangan or '' }}</textarea>
+
+                <div class="col-md-6">
+                    {{ form.keterangan.label(class='form-label') }}
+                    {{ form.keterangan(class='form-control', rows='2') }}
                 </div>
             </div>
             <div class="mt-4">
-                <button type="submit" class="btn btn-primary">Update</button>
+                {{ form.submit(class='btn btn-primary') }}
                 <a href="{{ url_for('inventory') }}" class="btn btn-outline-secondary ms-2">Batal</a>
             </div>
         </form>
